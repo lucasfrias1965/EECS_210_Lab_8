@@ -28,8 +28,7 @@ void transitive_closure(Matrix * user_matrix){
 
     const size_t N = user_matrix->n;
     
-    for (int i = 2; i < N; i++) {
-        printf("Computing A^%d\n", i);
+    for (int i = 2; i <= N; i++) {
 
         A = mat_mult_bool(A, user_matrix);
 
@@ -38,6 +37,18 @@ void transitive_closure(Matrix * user_matrix){
     }
 
     display_matrix(B->data, B->n);
+}
+
+void warshie_my_beloved(Matrix * user_matrix){
+    const size_t N = user_matrix->n;
+    Matrix * W = make_copy_matrix(user_matrix);
+    for (int k = 1; k<N; k++){
+        for (int i = 1; i<N; i++){
+            for (int j = 1; j<N; j++){
+               W->data[i*N + j] = W->data[i*N+j] || (W->data[i*N+k] && W->data[k*N + j]);
+            } 
+        }
+    }
 }
 
 int main(){
@@ -89,7 +100,6 @@ int main(){
     //display_matrix(user_matrix->data, user_matrix->n);
 
     //now we need to implement the two algorithms: transitive closure and warshall's
-    printf("starting trans procedure");
     transitive_closure(user_matrix);    
 
      

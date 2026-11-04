@@ -26,14 +26,24 @@ Matrix * make_copy_matrix(Matrix * a){
 Matrix * mat_or(Matrix * a, Matrix * b){
     const size_t N = a->n;
     if (!(a->n == b->n)) printf("ERROR: matrixes are not same size"), exit(1);
-    printf("a->n = %zu\n", a->n);
-    printf("b->n = %zu\n", b->n);
     
     bool quick[N*N];
     for (size_t i = 0; i<N*N; i++) quick[i] = a->data[i] || b->data[i];
    
     return make_matrix(quick, N);  
 }
+
+Matrix * mat_and(Matrix * a, Matrix * b){
+    const size_t N = a->n;
+    if (!(a->n == b->n)) printf("ERROR: matrixes are not same size"), exit(1);
+    
+    bool quick[N*N];
+    for (size_t i = 0; i<N*N; i++) quick[i] = a->data[i] && b->data[i];
+   
+    return make_matrix(quick, N);  
+}
+
+
 
 
 Matrix * mat_mult_bool(Matrix * a, Matrix * b){
