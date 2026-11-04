@@ -15,7 +15,7 @@ void display_matrix(bool * arr, size_t n){
         if (arr[i]) printf(" 1 ");
         if (!arr[i]) printf(" 0 ");
     }
-    printf("|");
+    printf("|\n");
 }
 
 
@@ -28,10 +28,15 @@ void transitive_closure(Matrix * user_matrix){
 
     const size_t N = user_matrix->n;
     
-    for (int i = 2; i<N; i++){
+    for (int i = 2; i < N; i++) {
+        printf("Computing A^%d\n", i);
+
         A = mat_mult_bool(A, user_matrix);
+
         B = mat_or(A, B);
+
     }
+
     display_matrix(B->data, B->n);
 }
 
@@ -84,6 +89,7 @@ int main(){
     //display_matrix(user_matrix->data, user_matrix->n);
 
     //now we need to implement the two algorithms: transitive closure and warshall's
+    printf("starting trans procedure");
     transitive_closure(user_matrix);    
 
      
