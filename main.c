@@ -23,8 +23,16 @@ void display_matrix(bool * arr, size_t n){
 
 
 void transitive_closure(Matrix * user_matrix){
-    
+    Matrix * A = make_copy_matrix(user_matrix);
+    Matrix * B = make_copy_matrix(user_matrix);
 
+    const size_t N = user_matrix->n;
+    
+    for (int i = 2; i<N; i++){
+        A = mat_mult_bool(A, user_matrix);
+        B = mat_or(A, B);
+    }
+    display_matrix(B->data, B->n);
 }
 
 int main(){
@@ -73,10 +81,10 @@ int main(){
 
     if (previous_matrix_size_row != matrix_size_column) printf("ERROR, matrix is not NxN\n"), exit(1);
     Matrix * user_matrix = make_matrix(matrix_buffer, matrix_size_column); 
-    display_matrix(user_matrix->data, user_matrix->n);
+    //display_matrix(user_matrix->data, user_matrix->n);
 
     //now we need to implement the two algorithms: transitive closure and warshall's
-    
+    transitive_closure(user_matrix);    
 
      
  
