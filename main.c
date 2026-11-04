@@ -3,13 +3,29 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include "matrix.c"
+
+
+
+    
+void display_matrix(bool * arr, size_t n){
+    printf("|");
+    for (size_t i = 0; i < n*n; i++){
+        if (i != 0 && i % n == 0) printf("|\n|");
+        if (arr[i]) printf(" 1 ");
+        if (!arr[i]) printf(" 0 ");
+    }
+    printf("|");
+}
 
 
 
 
-typedef struct {
+
+void transitive_closure(Matrix * user_matrix){
     
 
+}
 
 int main(){
     //first, we need to get the user inputted matrix
@@ -20,6 +36,7 @@ int main(){
     size_t previous_matrix_size_row = 0;
     size_t matrix_size_row = 0;
     size_t matrix_size_column = 0;
+    size_t matrix_index = 0;
     for(;;){
 
        //first check to make sure we don't overflow the buffer
@@ -35,24 +52,28 @@ int main(){
 
             if (buffer[i] == ' ' || buffer[i] == '\n' || buffer[i] == ',') continue;
 
-            else if (buffer[i] == '0') matrix_buffer[i] = false;
-            else if (buffer[i] == '1') matrix_buffer[i] = true;
+            else if (buffer[i] == '0') matrix_buffer[matrix_index] = false;
+            else if (buffer[i] == '1') matrix_buffer[matrix_index] = true;
             else printf("ERROR, invalid character %c\n", buffer[i]), exit(1);
-            i++;
-            matrix_size_row++;
+            
+            matrix_size_row++, matrix_index++;
        }
 
         //matrix size checking, by default on first run previous_matrix_size_row should be zero
-        if (matrix_size_row != previous_matrix_size_row && previous_matrix_size_row != 0)perror("ERROR, inconsistent row sizes\n"), exit(1);
-        else { previous_matrix_size_row = matrix_size_row; matrix_size_row = 0;} 
+        if (matrix_size_row != previous_matrix_size_row && previous_matrix_size_row != 0)printf("ERROR, inconsistent row sizes\n"), exit(1);
+        else { previous_matrix_size_row = matrix_size_row; matrix_size_row = 0;}
 
         matrix_size_column++;
-        
+
     }
     //we broke from the loop. lets make sure our row and columns have the same space size
     if (previous_matrix_size_row != matrix_size_column) printf("ERROR, matrix is not NxN\n"), exit(1);
-   
-    //okay we already have our "matrix". we know that we can go from 0 to n^2 -1 within our boolean array and access ith and jth elements
+
+    //display_matrix(matrix_buffer, matrix_size_column*matrix_size_column);
+
+    if (previous_matrix_size_row != matrix_size_column) printf("ERROR, matrix is not NxN\n"), exit(1);
+    Matrix * user_matrix = make_matrix(matrix_buffer, matrix_size_column); 
+    display_matrix(user_matrix->data, user_matrix->n);
 
     //now we need to implement the two algorithms: transitive closure and warshall's
     
