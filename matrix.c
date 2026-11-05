@@ -11,7 +11,7 @@ Matrix * make_matrix(bool * arr, size_t n){
     Matrix * res = malloc(sizeof(Matrix));
     res->n = n;
     res->data = malloc(sizeof(bool) * n * n);
-    memcpy(res->data, arr, sizeof(n*n));
+    memcpy(res->data, arr, sizeof(bool) * n*n);
     return res;
 }
 

@@ -42,13 +42,14 @@ void transitive_closure(Matrix * user_matrix){
 void warshie_my_beloved(Matrix * user_matrix){
     const size_t N = user_matrix->n;
     Matrix * W = make_copy_matrix(user_matrix);
-    for (int k = 1; k<N; k++){
-        for (int i = 1; i<N; i++){
-            for (int j = 1; j<N; j++){
+    for (int k = 0; k<N; k++){
+        for (int i = 0; i<N; i++){
+            for (int j = 0; j<N; j++){
                W->data[i*N + j] = W->data[i*N+j] || (W->data[i*N+k] && W->data[k*N + j]);
             } 
         }
     }
+    display_matrix(W->data, W->n);
 }
 
 int main(){
@@ -100,9 +101,12 @@ int main(){
     //display_matrix(user_matrix->data, user_matrix->n);
 
     //now we need to implement the two algorithms: transitive closure and warshall's
+    
+    printf("Algorithm 1, Transitive Closure\n");
     transitive_closure(user_matrix);    
 
-     
+    printf("Algorithm 2, Warshall's Algorithm\n");
+    warshie_my_beloved(user_matrix); 
  
     return 0; 
 }
